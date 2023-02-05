@@ -29,7 +29,7 @@ def home(request):
         )
 
     except StripeCustomer.DoesNotExist:
-        return render(request, "home.html")
+        return render(request, "subscriptions/home.html")
 
 
 @csrf_exempt
