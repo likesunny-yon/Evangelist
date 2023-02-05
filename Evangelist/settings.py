@@ -19,8 +19,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # apps
-    "Payments.apps.PaymentsConfig",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "subscriptions.apps.SubscriptionsConfig",
 ]
 
 MIDDLEWARE = [
@@ -100,3 +103,23 @@ STRIPE_ENDPOINT_SECRET = (
 )
 # STRIPE_SECRET_KEY = os.environ["STRIPE_SECRET_KEY"]
 STRIPE_SECRET_KEY = "sk_test_51KcMQ6SFhG0bVK5sQtJx78Jt2ikOhSGgApNs7uTr4pyeIX49FP5Bi7J7epxW2b9kbzo5YYKpLZGa2T2JUcs6Hu3A00OiNMXJgd"
+
+STRIPE_PRICE_ID = "price_1MY5vHSFhG0bVK5s83QxbUgJ"
+
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# We have to set this variable, because we enabled 'django.contrib.sites'
+SITE_ID = 1
+
+# User will be redirected to this page after logging in
+LOGIN_REDIRECT_URL = '/'
+
+# If you don't have an email server running yet add this line to avoid any possible errors.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
