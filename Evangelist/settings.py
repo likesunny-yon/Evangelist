@@ -19,8 +19,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # apps
-    "Payments.apps.PaymentsConfig",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "subscriptions.apps.SubscriptionsConfig",
 ]
 
 MIDDLEWARE = [
@@ -92,11 +95,33 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# STRIPE_PUBLISHABLE_KEY = os.environ["STRIPE_PUBLISHABLE_KEY"]
-STRIPE_PUBLISHABLE_KEY = "pk_test_51KcMQ6SFhG0bVK5sZtJO3fVJmvwPkiaUiaVM5JznuDguygNqEbaugTmZNh5IEqAskeUzEobil5nlJ3Rb3OzZXwHS00Tb3APsaq"
+STRIPE_PUBLISHABLE_KEY = os.environ["STRIPE_PUBLISHABLE_KEY"]
+# STRIPE_PUBLISHABLE_KEY = "pk_test_51KcMQ6SFhG0bVK5sZtJO3fVJmvwPkiaUiaVM5JznuDguygNqEbaugTmZNh5IEqAskeUzEobil5nlJ3Rb3OzZXwHS00Tb3APsaq"
 
-STRIPE_ENDPOINT_SECRET = (
-    "whsec_2074c4f0677a57c23945b20ab33eebb960c819116025c9300e394acb6b7eeab2"
-)
-# STRIPE_SECRET_KEY = os.environ["STRIPE_SECRET_KEY"]
-STRIPE_SECRET_KEY = "sk_test_51KcMQ6SFhG0bVK5sQtJx78Jt2ikOhSGgApNs7uTr4pyeIX49FP5Bi7J7epxW2b9kbzo5YYKpLZGa2T2JUcs6Hu3A00OiNMXJgd"
+STRIPE_ENDPOINT_SECRET = os.environ('STRIPE_ENDPOINT_SECRET')
+# STRIPE_ENDPOINT_SECRET = (
+    # "whsec_2074c4f0677a57c23945b20ab33eebb960c819116025c9300e394acb6b7eeab2"
+# )
+STRIPE_SECRET_KEY = os.environ["STRIPE_SECRET_KEY"]
+# STRIPE_SECRET_KEY = "sk_test_51KcMQ6SFhG0bVK5sQtJx78Jt2ikOhSGgApNs7uTr4pyeIX49FP5Bi7J7epxW2b9kbzo5YYKpLZGa2T2JUcs6Hu3A00OiNMXJgd"
+
+# STRIPE_PRICE_ID = "price_1MY5vHSFhG0bVK5s83QxbUgJ"
+STRIPE_PRICE_ID = os.environ('STRIPE_PRICE_ID')
+
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# We have to set this variable, because we enabled 'django.contrib.sites'
+SITE_ID = 1
+
+# User will be redirected to this page after logging in
+LOGIN_REDIRECT_URL = '/'
+
+# If you don't have an email server running yet add this line to avoid any possible errors.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

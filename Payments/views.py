@@ -7,15 +7,15 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 class HomePageView(TemplateView):
-    template_name = "home.html"
+    template_name = "Payments/home.html"
 
 
 class SuccessView(TemplateView):
-    template_name = "success.html"
+    template_name = "Payments/success.html"
 
 
 class CancelledView(TemplateView):
-    template_name = "cancelled.html"
+    template_name = "Payments/cancelled.html"
 
 
 @csrf_exempt
